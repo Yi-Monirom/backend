@@ -1,0 +1,29 @@
+services:
+  api:
+    build: .
+    container_name: Mobile_backend
+    restart: unless-stopped
+    env_file:
+      .env
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "${PORT:-3000}:3000"
+    volumes:
+      - ./backend_data:/var/backend_Mobile
+  db:
+    image: postgres:15
+    container_name: Monograph_db
+    restart: unless-stopped
+    env_file:
+      .env
+    ports:
+      - "5432:5432"
+    volumes:
+      - .pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U  MONOGRAPH -d Monograph_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
