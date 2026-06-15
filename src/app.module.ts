@@ -20,11 +20,11 @@ import { CartItem } from './order/entities/cart-item.entity';
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: process.env.DATABASE_HOST ?? 'db',
-      port: Number(process.env.DATABASE_PORT) ?? 5432,
-      username: process.env.DATABASE_USER ?? 'MONOGRAPH',
-      password: process.env.DATABASE_PASSWORD ?? 'monograph!@#123',
-      database: process.env.DATABASE_NAME ?? 'Monograph_db',
+      host: process.env.DATABASE_HOST,
+      port: Number(process.env.DATABASE_PORT),
+      username: process.env.DATABASE_USER,
+      password: process.env.DATABASE_PASSWORD,
+      database: process.env.DATABASE_NAME ,
       entities: [User, Product, Category, Order, CartItem],
       synchronize: true,
     }),
