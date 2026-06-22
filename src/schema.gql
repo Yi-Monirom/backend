@@ -112,6 +112,7 @@ type Product {
 type Query {
   categories: [Category!]!
   category(id: Int!): Category!
+  me: User!
   order(id: Int!): Order!
   orders(userId: Int): [Order!]!
   product(id: Int!): Product!
