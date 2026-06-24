@@ -28,6 +28,14 @@ export class User {
   @Column()
   password: string;
 
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  resetToken?: string | null;
+
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  resetTokenExpiry?: Date | null;
+
   @OneToMany(() => Order, (order) => order.user)
   orders: Order[];
 }

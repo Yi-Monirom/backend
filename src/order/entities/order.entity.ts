@@ -26,6 +26,14 @@ export class Order {
   @Column()
   address: string;
 
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  cancelReason?: string;
+
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  returnReason?: string;
+
   @Field()
   @CreateDateColumn()
   createdAt: Date;

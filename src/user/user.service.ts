@@ -42,6 +42,10 @@ export class UserService {
     return this.userRepository.findOne({ where: { email } });
   }
 
+  async findByResetToken(token: string): Promise<User | null> {
+    return this.userRepository.findOne({ where: { resetToken: token } });
+  }
+
   async update(id: number, updateUserInput: UpdateUserInput): Promise<User> {
     const user = await this.findOne(id);
     if (updateUserInput.name !== undefined) user.name = updateUserInput.name;
@@ -51,6 +55,8 @@ export class UserService {
     if (updateUserInput.password !== undefined) {
       user.password = await bcrypt.hash(updateUserInput.password, 10);
     }
+    if (updateUserInput.resetToken !== undefined) user.resetToken = updateUserInput.resetToken;
+    if (updateUserInput.resetTokenExpiry !== undefined) user.resetTokenExpiry = updateUserInput.resetTokenExpiry;
     return this.userRepository.save(user);
   }
 

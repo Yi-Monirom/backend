@@ -86,4 +86,18 @@ export class OrderService {
     await this.orderRepository.remove(order);
     return order;
   }
+
+  async cancelOrder(id: number, reason: string): Promise<Order> {
+    const order = await this.findOne(id);
+    order.status = 'cancelled';
+    order.cancelReason = reason;
+    return this.orderRepository.save(order);
+  }
+
+  async returnOrder(id: number, reason: string): Promise<Order> {
+    const order = await this.findOne(id);
+    order.status = 'returned';
+    order.returnReason = reason;
+    return this.orderRepository.save(order);
+  }
 }

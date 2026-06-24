@@ -37,4 +37,20 @@ export class OrderResolver {
   removeOrder(@Args('id', { type: () => Int }) id: number) {
     return this.orderService.remove(id);
   }
+
+  @Mutation(() => Order)
+  cancelOrder(
+    @Args('id', { type: () => Int }) id: number,
+    @Args('reason') reason: string,
+  ) {
+    return this.orderService.cancelOrder(id, reason);
+  }
+
+  @Mutation(() => Order)
+  returnOrder(
+    @Args('id', { type: () => Int }) id: number,
+    @Args('reason') reason: string,
+  ) {
+    return this.orderService.returnOrder(id, reason);
+  }
 }

@@ -37,6 +37,11 @@ export class ProductResolver {
     return this.productService.findAll();
   }
 
+  @Query(() => [Product], { name: 'searchProducts' })
+  searchProducts(@Args('query') query: string) {
+    return this.productService.search(query);
+  }
+
   @Query(() => Product, { name: 'product' })
   findOne(@Args('id', { type: () => Int }) id: number) {
     return this.productService.findOne(id);

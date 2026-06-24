@@ -26,4 +26,17 @@ export class AuthResolver {
   me(@Context() context: any) {
     return context.req.user;
   }
+
+  @Mutation(() => String)
+  forgotPassword(@Args('email') email: string) {
+    return this.authService.forgotPassword(email);
+  }
+
+  @Mutation(() => Boolean)
+  resetPassword(
+    @Args('token') token: string,
+    @Args('newPassword') newPassword: string,
+  ) {
+    return this.authService.resetPassword(token, newPassword);
+  }
 }

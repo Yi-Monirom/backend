@@ -37,6 +37,14 @@ export class ProductService {
     return this.productRepository.find({ where: { isNew: true } });
   }
 
+  async search(query: string): Promise<Product[]> {
+    return this.productRepository
+      .createQueryBuilder('product')
+      .where('LOWER(product.name) LIKE LOWER(:query)', { query: `%${query}%` })
+      .orWhere('LOWER(product.description) LIKE LOWER(:query)', { query: `%${query}%` })
+      .getMany();
+  }
+
   async filter(sizes?: string[], color?: string, fit?: string): Promise<Product[]> {
     const query = this.productRepository.createQueryBuilder('product');
 
@@ -65,6 +73,14 @@ export class ProductService {
     if (updateProductInput.fit !== undefined) product.fit = updateProductInput.fit;
     if (updateProductInput.isNew !== undefined) product.isNew = updateProductInput.isNew;
     return this.productRepository.save(product);
+  }
+
+  async search(query: string): Promise<Product[]> {
+    return this.productRepository
+      .createQueryBuilder('product')
+      .where('LOWER(product.name) LIKE LOWER(:query)', { query: `%${query}%` })
+      .orWhere('LOWER(product.description) LIKE LOWER(:query)', { query: `%${query}%` })
+      .getMany();
   }
 
   async remove(id: number): Promise<Product> {
