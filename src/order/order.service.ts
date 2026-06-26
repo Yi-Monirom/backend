@@ -39,7 +39,9 @@ export class OrderService {
   }
 
   async findAll(): Promise<Order[]> {
-    return this.orderRepository.find({ relations: { items: { product: true } } });
+    return this.orderRepository.find({
+      relations: { items: { product: true } },
+    });
   }
 
   async findByUser(userId: number): Promise<Order[]> {
@@ -62,8 +64,10 @@ export class OrderService {
 
   async update(id: number, updateOrderInput: UpdateOrderInput): Promise<Order> {
     const order = await this.findOne(id);
-    if (updateOrderInput.total !== undefined) order.total = updateOrderInput.total;
-    if (updateOrderInput.address !== undefined) order.address = updateOrderInput.address;
+    if (updateOrderInput.total !== undefined)
+      order.total = updateOrderInput.total;
+    if (updateOrderInput.address !== undefined)
+      order.address = updateOrderInput.address;
     if (updateOrderInput.items !== undefined) {
       order.items = await Promise.all(
         updateOrderInput.items.map(async (item) => {

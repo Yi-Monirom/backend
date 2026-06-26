@@ -6,9 +6,9 @@ export class UpdateUserInput extends PartialType(CreateUserInput) {
   @Field(() => Int)
   id: number;
 
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   resetToken?: string | null;
 
-  @Field({ nullable: true })
+  @Field(() => Date, { nullable: true })
   resetTokenExpiry?: Date | null;
 }

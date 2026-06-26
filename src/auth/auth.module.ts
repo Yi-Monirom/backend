@@ -7,7 +7,6 @@ import { AuthController } from './auth.controller';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { GqlAuthGuard } from './guards/gql-auth.guard';
 import { UserModule } from '../user/user.module';
-import { UserService } from '../user/user.service';
 import { User } from '../user/entities/user.entity';
 
 @Module({
@@ -21,6 +20,6 @@ import { User } from '../user/entities/user.entity';
   ],
   controllers: [AuthController],
   providers: [AuthResolver, AuthService, JwtAuthGuard, GqlAuthGuard],
-  exports: [JwtAuthGuard, UserService],
+  exports: [JwtAuthGuard, UserModule, JwtModule],
 })
 export class AuthModule {}

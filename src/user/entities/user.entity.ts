@@ -28,12 +28,12 @@ export class User {
   @Column()
   password: string;
 
-  @Field({ nullable: true })
-  @Column({ nullable: true })
+  @Field(() => String, { nullable: true })
+  @Column({ nullable: true, type: 'varchar' })
   resetToken?: string | null;
 
-  @Field({ nullable: true })
-  @Column({ nullable: true })
+  @Field(() => Date, { nullable: true })
+  @Column({ nullable: true, type: 'timestamp' })
   resetTokenExpiry?: Date | null;
 
   @OneToMany(() => Order, (order) => order.user)
