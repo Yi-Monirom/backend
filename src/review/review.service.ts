@@ -11,8 +11,14 @@ export class ReviewService {
     private readonly reviewRepository: Repository<Review>,
   ) {}
 
-  async create(createReviewInput: CreateReviewInput, userId: number): Promise<Review> {
-    const review = this.reviewRepository.create({ ...createReviewInput, userId });
+  async create(
+    createReviewInput: CreateReviewInput,
+    userId: number,
+  ): Promise<Review> {
+    const review = this.reviewRepository.create({
+      ...createReviewInput,
+      userId,
+    });
     return this.reviewRepository.save(review);
   }
 

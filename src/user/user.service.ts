@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException, ConflictException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  ConflictException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateUserInput } from './dto/create-user.input';
@@ -14,7 +18,9 @@ export class UserService {
   ) {}
 
   async create(createUserInput: CreateUserInput): Promise<User> {
-    const existing = await this.userRepository.findOne({ where: { email: createUserInput.email } });
+    const existing = await this.userRepository.findOne({
+      where: { email: createUserInput.email },
+    });
     if (existing) {
       throw new ConflictException('Email already registered');
     }
@@ -51,12 +57,15 @@ export class UserService {
     if (updateUserInput.name !== undefined) user.name = updateUserInput.name;
     if (updateUserInput.email !== undefined) user.email = updateUserInput.email;
     if (updateUserInput.phone !== undefined) user.phone = updateUserInput.phone;
-    if (updateUserInput.avatarUrl !== undefined) user.avatarUrl = updateUserInput.avatarUrl;
+    if (updateUserInput.avatarUrl !== undefined)
+      user.avatarUrl = updateUserInput.avatarUrl;
     if (updateUserInput.password !== undefined) {
       user.password = await bcrypt.hash(updateUserInput.password, 10);
     }
-    if (updateUserInput.resetToken !== undefined) user.resetToken = updateUserInput.resetToken;
-    if (updateUserInput.resetTokenExpiry !== undefined) user.resetTokenExpiry = updateUserInput.resetTokenExpiry;
+    if (updateUserInput.resetToken !== undefined)
+      user.resetToken = updateUserInput.resetToken;
+    if (updateUserInput.resetTokenExpiry !== undefined)
+      user.resetTokenExpiry = updateUserInput.resetTokenExpiry;
     return this.userRepository.save(user);
   }
 

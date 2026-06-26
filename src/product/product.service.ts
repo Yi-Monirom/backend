@@ -41,11 +41,17 @@ export class ProductService {
     return this.productRepository
       .createQueryBuilder('product')
       .where('LOWER(product.name) LIKE LOWER(:query)', { query: `%${query}%` })
-      .orWhere('LOWER(product.description) LIKE LOWER(:query)', { query: `%${query}%` })
+      .orWhere('LOWER(product.description) LIKE LOWER(:query)', {
+        query: `%${query}%`,
+      })
       .getMany();
   }
 
-  async filter(sizes?: string[], color?: string, fit?: string): Promise<Product[]> {
+  async filter(
+    sizes?: string[],
+    color?: string,
+    fit?: string,
+  ): Promise<Product[]> {
     const query = this.productRepository.createQueryBuilder('product');
 
     if (sizes && sizes.length > 0) {
@@ -61,28 +67,31 @@ export class ProductService {
     return query.getMany();
   }
 
-  async update(id: number, updateProductInput: UpdateProductInput): Promise<Product> {
+  async update(
+    id: number,
+    updateProductInput: UpdateProductInput,
+  ): Promise<Product> {
     const product = await this.findOne(id);
-    if (updateProductInput.name !== undefined) product.name = updateProductInput.name;
-    if (updateProductInput.description !== undefined) product.description = updateProductInput.description;
-    if (updateProductInput.price !== undefined) product.price = updateProductInput.price;
-    if (updateProductInput.imageUrl !== undefined) product.imageUrl = updateProductInput.imageUrl;
-    if (updateProductInput.categoryId !== undefined) product.categoryId = updateProductInput.categoryId;
-    if (updateProductInput.sizes !== undefined) product.sizes = updateProductInput.sizes;
-    if (updateProductInput.colors !== undefined) product.colors = updateProductInput.colors;
-    if (updateProductInput.fit !== undefined) product.fit = updateProductInput.fit;
-    if (updateProductInput.isNew !== undefined) product.isNew = updateProductInput.isNew;
+    if (updateProductInput.name !== undefined)
+      product.name = updateProductInput.name;
+    if (updateProductInput.description !== undefined)
+      product.description = updateProductInput.description;
+    if (updateProductInput.price !== undefined)
+      product.price = updateProductInput.price;
+    if (updateProductInput.imageUrl !== undefined)
+      product.imageUrl = updateProductInput.imageUrl;
+    if (updateProductInput.categoryId !== undefined)
+      product.categoryId = updateProductInput.categoryId;
+    if (updateProductInput.sizes !== undefined)
+      product.sizes = updateProductInput.sizes;
+    if (updateProductInput.colors !== undefined)
+      product.colors = updateProductInput.colors;
+    if (updateProductInput.fit !== undefined)
+      product.fit = updateProductInput.fit;
+    if (updateProductInput.isNew !== undefined)
+      product.isNew = updateProductInput.isNew;
     return this.productRepository.save(product);
   }
-
-  async search(query: string): Promise<Product[]> {
-    return this.productRepository
-      .createQueryBuilder('product')
-      .where('LOWER(product.name) LIKE LOWER(:query)', { query: `%${query}%` })
-      .orWhere('LOWER(product.description) LIKE LOWER(:query)', { query: `%${query}%` })
-      .getMany();
-  }
-
   async remove(id: number): Promise<Product> {
     const product = await this.findOne(id);
     await this.productRepository.remove(product);

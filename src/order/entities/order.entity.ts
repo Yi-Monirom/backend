@@ -1,5 +1,13 @@
 import { ObjectType, Field, Int, Float } from '@nestjs/graphql';
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, JoinColumn, CreateDateColumn } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  OneToMany,
+  JoinColumn,
+  CreateDateColumn,
+} from 'typeorm';
 import { CartItem } from './cart-item.entity';
 import { User } from '../../user/entities/user.entity';
 

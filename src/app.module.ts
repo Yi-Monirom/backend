@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -20,13 +21,16 @@ import { Review } from './review/entities/review.entity';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.DATABASE_HOST,
       port: Number(process.env.DATABASE_PORT),
       username: process.env.DATABASE_USER,
       password: process.env.DATABASE_PASSWORD,
-      database: process.env.DATABASE_NAME ,
+      database: process.env.DATABASE_NAME,
+      ssl: { rejectUnauthorized: false },
+      extra: { connectionTimeoutMillis: 30000 },
       entities: [User, Product, Category, Order, CartItem, Review],
       synchronize: true,
     }),

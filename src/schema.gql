@@ -52,6 +52,13 @@ input CreateProductInput {
   sizes: [String!]
 }
 
+input CreateReviewInput {
+  comment: String
+  productId: Int!
+  rating: Float!
+  title: String
+}
+
 input CreateUserInput {
   avatarUrl: String
   email: String!
@@ -71,16 +78,22 @@ input LoginInput {
 }
 
 type Mutation {
+  cancelOrder(id: Int!, reason: String!): Order!
   createCategory(createCategoryInput: CreateCategoryInput!): Category!
   createOrder(createOrderInput: CreateOrderInput!): Order!
   createProduct(createProductInput: CreateProductInput!): Product!
+  createReview(createReviewInput: CreateReviewInput!): Review!
   createUser(createUserInput: CreateUserInput!): User!
+  forgotPassword(email: String!): String!
   login(loginInput: LoginInput!): AuthPayload!
   register(createUserInput: CreateUserInput!): AuthPayload!
   removeCategory(id: Int!): Category!
   removeOrder(id: Int!): Order!
   removeProduct(id: Int!): Product!
+  removeReview(id: Int!): Review!
   removeUser(id: Int!): User!
+  resetPassword(newPassword: String!, token: String!): Boolean!
+  returnOrder(id: Int!, reason: String!): Order!
   updateOrder(updateOrderInput: UpdateOrderInput!): Order!
   updateProduct(updateProductInput: UpdateProductInput!): Product!
   updateUser(updateUserInput: UpdateUserInput!): User!
@@ -88,9 +101,11 @@ type Mutation {
 
 type Order {
   address: String!
+  cancelReason: String
   createdAt: DateTime!
   id: Int!
   items: [CartItem!]!
+  returnReason: String
   status: String!
   total: Float!
   userId: Int!
@@ -117,8 +132,20 @@ type Query {
   orders(userId: Int): [Order!]!
   product(id: Int!): Product!
   products(categoryId: Int, color: String, fit: String, newArrivals: Boolean, sizes: [String!]): [Product!]!
+  reviews(productId: Int!): [Review!]!
+  searchProducts(query: String!): [Product!]!
   user(id: Int!): User!
   users: [User!]!
+}
+
+type Review {
+  comment: String
+  createdAt: DateTime!
+  id: Int!
+  productId: Int!
+  rating: Float!
+  title: String
+  userId: Int!
 }
 
 input UpdateOrderInput {
@@ -149,6 +176,8 @@ input UpdateUserInput {
   name: String
   password: String
   phone: String
+  resetToken: String
+  resetTokenExpiry: DateTime
 }
 
 type User {
@@ -157,4 +186,6 @@ type User {
   id: Int!
   name: String!
   phone: String
+  resetToken: String
+  resetTokenExpiry: DateTime
 }
