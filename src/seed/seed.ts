@@ -3,6 +3,7 @@ import { AppModule } from '../app.module';
 import { CategoryService } from '../category/category.service';
 import { ProductService } from '../product/product.service';
 import { UserService } from '../user/user.service';
+import { LookService } from '../look/look.service';
 
 async function seed() {
   const app = await NestFactory.createApplicationContext(AppModule);
@@ -242,6 +243,19 @@ async function seed() {
   });
 
   console.log('  ✓ Products created');
+
+  // Seed looks
+  const lookService = app.get(LookService);
+  await lookService.create({ title: 'The Tailoring Archive', subtitle: 'VOL. 04', image: 'https://images.unsplash.com/photo-1617137968427-85924c800a22?w=600&q=80', tag: 'BLAZERS', height: 420 });
+  await lookService.create({ title: 'Soft Structures', subtitle: 'KNITWEAR', image: 'https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&q=80', tag: 'KNITS', height: 340 });
+  await lookService.create({ title: 'Urban Silhouette', subtitle: 'STREET EDIT', image: 'https://images.unsplash.com/photo-1516820827855-3ea1bd6f79ea?w=600&q=80', tag: 'CASUAL', height: 380 });
+  await lookService.create({ title: 'Evening Deco', subtitle: 'AFTER DARK', image: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=600&q=80', tag: 'FORMAL', height: 360 });
+  await lookService.create({ title: 'Weekend Edit', subtitle: 'OFF DUTY', image: 'https://images.unsplash.com/photo-1516257984-b1b4d707412e?w=600&q=80', tag: 'CASUAL', height: 400 });
+  await lookService.create({ title: 'Coastal Drift', subtitle: 'RESORT 25', image: 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=600&q=80', tag: 'RESORT', height: 320 });
+  await lookService.create({ title: 'The Modernist', subtitle: 'MINIMAL', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80', tag: 'FORMAL', height: 440 });
+  await lookService.create({ title: 'Layer Report', subtitle: 'OUTERWEAR', image: 'https://images.unsplash.com/photo-1544022613-e87ca75a784a?w=600&q=80', tag: 'OUTERWEAR', height: 350 });
+  await lookService.create({ title: 'Textile Study', subtitle: 'FABRIC FOCUS', image: 'https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=600&q=80', tag: 'EDITORIAL', height: 300 });
+  console.log('  ✓ Looks created');
 
   await userService.create({
     name: 'Test User',

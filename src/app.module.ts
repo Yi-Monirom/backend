@@ -13,6 +13,7 @@ import { ProductModule } from './product/product.module';
 import { UserModule } from './user/user.module';
 import { CategoryModule } from './category/category.module';
 import { ReviewModule } from './review/review.module';
+import { LookModule } from './look/look.module';
 import { AuthModule } from './auth/auth.module';
 
 import { User } from './user/entities/user.entity';
@@ -21,6 +22,7 @@ import { Category } from './category/entities/category.entity';
 import { Order } from './order/entities/order.entity';
 import { CartItem } from './order/entities/cart-item.entity';
 import { Review } from './review/entities/review.entity';
+import { Look } from './look/entities/look.entity';
 
 
 @Module({
@@ -53,6 +55,7 @@ import { Review } from './review/entities/review.entity';
         Order,
         CartItem,
         Review,
+        Look,
       ],
 
       synchronize: true,
@@ -78,6 +81,7 @@ import { Review } from './review/entities/review.entity';
     UserModule,
     CategoryModule,
     ReviewModule,
+    LookModule,
     AuthModule,
 
   ],
