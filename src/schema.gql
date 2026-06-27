@@ -33,6 +33,15 @@ input CreateCategoryInput {
   name: String!
 }
 
+input CreateLookInput {
+  height: Float! = 400
+  image: String!
+  productId: Int
+  subtitle: String!
+  tag: String!
+  title: String!
+}
+
 input CreateOrderInput {
   address: String!
   items: [CartItemInput!]!
@@ -77,9 +86,20 @@ input LoginInput {
   password: String!
 }
 
+type Look {
+  height: Float!
+  id: Int!
+  image: String!
+  productId: Int
+  subtitle: String!
+  tag: String!
+  title: String!
+}
+
 type Mutation {
   cancelOrder(id: Int!, reason: String!): Order!
   createCategory(createCategoryInput: CreateCategoryInput!): Category!
+  createLook(createLookInput: CreateLookInput!): Look!
   createOrder(createOrderInput: CreateOrderInput!): Order!
   createProduct(createProductInput: CreateProductInput!): Product!
   createReview(createReviewInput: CreateReviewInput!): Review!
@@ -88,6 +108,7 @@ type Mutation {
   login(loginInput: LoginInput!): AuthPayload!
   register(createUserInput: CreateUserInput!): AuthPayload!
   removeCategory(id: Int!): Category!
+  removeLook(id: Int!): Look!
   removeOrder(id: Int!): Order!
   removeProduct(id: Int!): Product!
   removeReview(id: Int!): Review!
@@ -127,6 +148,8 @@ type Product {
 type Query {
   categories: [Category!]!
   category(id: Int!): Category!
+  look(id: Int!): Look!
+  looks: [Look!]!
   me: User!
   order(id: Int!): Order!
   orders(userId: Int): [Order!]!
