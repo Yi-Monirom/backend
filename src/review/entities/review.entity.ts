@@ -45,6 +45,7 @@ export class Review {
   @JoinColumn({ name: 'productId' })
   product: Product;
 
+  @Field(() => User)
   @ManyToOne(() => User)
   @JoinColumn({ name: 'userId' })
   user: User;
